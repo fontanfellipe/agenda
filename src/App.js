@@ -9,53 +9,52 @@ import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
 
 
 
+class App extends React.Component {
 
-class App extends React.Component{
-  state = {
-    
-  };
+state = {
+  events: [
+    {id: 1, time: '07:00', title: 'Running with amorzinhos'},
+    {id: 2, time: '08:40', title: 'Gonna work'},
+    {id: 3, time: '11:00', title: '3D weekly meeting'},
+    {id: 4, time: '12:00', title: 'lunch with amorzinhos'},
+    {id: 5, time: '13:15', title: 'QA weekly meeting'}
+  ]
+}
 
   render(){
-    
     const columnStyle = {
       border: '1px dotted black'
     }
 
+    const mappingTest = this.state.events.map((event) => 
+      <Events key={event.id} time={event.time} title={event.title} />)
+
     return (
-      <React.Fragment>
-        <MDBRow>
-        <MDBCol style={columnStyle} md="9">
-          <Event time='10:00' title='Meeting with John' />
-          {/* <Event hour='12:00' title='Lunch with amorzinhos'/> */}
+    <React.Fragment>
+      <MDBRow >
+        <MDBCol style={columnStyle} md='9' md='9'>
+          {mappingTest}
         </MDBCol>
-        <MDBCol style={columnStyle} md="3"/>
-        </MDBRow>
-      </React.Fragment>
+        <MDBCol style={columnStyle} md='9' md='3'></MDBCol>
+      </MDBRow>
+    </React.Fragment>
     )
   }
 }
 
-class Event extends React.Component {
-  constructor(props){
-    super(props);
-    this.state={
-      time: this.props.time,
-      title: this.props.title 
+class Events extends React.Component {
+  state={
+    time: this.props.time,
+    title: this.props.title
   }
- 
-  };
+
   render(){
 
-    const handleChangeTitle = () => this.setState({title: "My new state title"}, console.log(this.state.title))
-    const handleChangeTime = () => this.setState({time: '11:00'})
+    return(
+    <React.Fragment>
+      <h3>{this.props.time} - {this.props.title}</h3>
 
-    return (
-      <React.Fragment>
-        <h3>{this.props.time} - {this.props.title}</h3>
-        <button onClick={handleChangeTitle}>Change title</button>
-        <button onClick={handleChangeTime}>Change time</button>
-
-      </React.Fragment>
+    </React.Fragment>
     )
   }
 }
